@@ -35,3 +35,8 @@ enum FruitJuice {
         }
     }
 }
+
+/*
+ 질문2.
+ 
+ */
