@@ -34,6 +34,7 @@ class FruitStore {
 }
 
 
+
 /*
 질문 3.
 - 과일의 재고를 관리하는 FruitStore를 class로 만든 이유는 무엇일까요?
