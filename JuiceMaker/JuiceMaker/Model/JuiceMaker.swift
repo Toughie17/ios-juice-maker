@@ -6,7 +6,7 @@
 //망고 쥬스 망고 3개
 //망고키위쥬스 망고2개 키위 1개
 
-enum juiceRecipe {
+enum JuiceRecipe {
     static let strawberryJuice = (Fruits.strawberry, 16)
     static let bananaJuice = (Fruits.banana, 2)
     static let kiwiJuice = (Fruits.kiwi, 3)
@@ -21,4 +21,19 @@ enum juiceRecipe {
 
 struct JuiceMaker {
     
+    func makeStrawberryJuice() {
+        if Fruits.strawberry.stock >= JuiceRecipe.strawberryJuice.1 {
+            Fruits.strawberry.subtractStock(JuiceRecipe.strawberryJuice.1)
+            print("쥬스 나왔습니다! 맛있게 드세요!")
+        } else {
+            print("재료가 모자라요. 재고를 수정할까요?")
+        }
+    }
+    
+    /* 쥬스 만드는 함수
+     FruitStore의 과일을 사용해 과일 쥬스를 제조
+     과일의 재고가 부족하면 과일 쥬스를 제조할 수 없음-> 조건문으로 확인
+     JuiceMakersms FruitStore를 소유하고 있음*/
 }
+
+
