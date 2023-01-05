@@ -6,36 +6,40 @@
 
 import Foundation
 
-// 과일 저장소 타입
 class FruitStore {
-    // 각 과일의 초기재고 10개
-    let defaultStock = 10
-    
-    // FruitStore가 관리하는 과일의 종류: 딸기, 바나나, 파인애플, 키위, 망고
-    lazy var fruitStock: [Fruit : Int] = {
-        var stock: [Fruit : Int] = [:]
+    private var defaultStock: UInt = 10
+
+    private(set) lazy var fruitStock: [Fruit : UInt] = {
+        var stock: [Fruit : UInt] = [:]
         Fruit.allCases.forEach { fruit in
             stock[fruit] = defaultStock
         }
         return stock
     }()
     
-    // 각 과일의 수량 n개를 변경하는 기능이 있습니다
-    func add(fruit: Fruit, number: Int) {
-        guard let currentNumber = fruitStock[fruit] else {return}
+    func addStock(of fruit: Fruit, number: UInt) {
+        guard let currentNumber = fruitStock[fruit] else { return }
         fruitStock.updateValue(currentNumber + number, forKey: fruit)
     }
     
-    // 과일쥬스 메이커에서 사용하려고 하는데 아직 사용은 안했어요
-    func use(fruit: Fruit, number: Int) {
-        guard let currentNumber = fruitStock[fruit] else {return}
+    func consumeStock(of fruit: Fruit, number: UInt) {
+        guard let currentNumber = fruitStock[fruit] else { return }
         fruitStock.updateValue(currentNumber - number, forKey: fruit)
     }
 }
 
+/* ==================================================================================
+⭐️ 추가사항
+    1. 말씀하신대로 private(set) fruitStock 으로 변경하였습니다.
+    
+    2. addStock <-> consumeStock 은 어떨까요?
+ 
+    2-1. addStock(of ), consumeStock(of ) 어떨까요? of? for?
+ 
+ 
+*/
 
-
-/*
+/* ==================================================================================
 질문 3.
 - 과일의 재고를 관리하는 FruitStore를 class로 만든 이유는 무엇일까요?
     ⚠️ 처음에 싱글톤으로 생성하고 싶었고, 그래서 class 로 제작하고 있었는데요
@@ -70,8 +74,8 @@ class FruitStore {
  
  
  
-- lazy var fruitStock: [Fruit : Int] = {
- var stock: [Fruit : Int] = [:]
+- lazy var fruitStock: [Fruit : UInt] = {
+ var stock: [Fruit : UInt] = [:]
  Fruit.allCases.forEach { fruit in
      stock[fruit] = defaultStock
  }
@@ -88,17 +92,17 @@ class FruitStore {
         소괄호 () 가 있으니 실행한 값을 할당한다는 뜻이에요!
  
         2) 타입과 리턴에 대한 설명
-        lazy var fruitStock: [Fruit : Int] = {
-            var stock: [Fruit : Int] = [:]
+        lazy var fruitStock: [Fruit : UInt] = {
+            var stock: [Fruit : UInt] = [:]
             CODE
             return stock
          }()
  
-        먼저 선언하려는 변수 fruitStock 의 타입은 [Fruit : Int] 이죠
+        먼저 선언하려는 변수 fruitStock 의 타입은 [Fruit : UInt] 이죠
         제가 중괄호 안의 CODE를 실행해서 나온 값을 할당한다고 했는데
-        CODE 안에 실행한 값은 결국 [Fruit : Int] 를 리턴해야해요 (fruitStock의 타입)
+        CODE 안에 실행한 값은 결국 [Fruit : UInt] 를 리턴해야해요 (fruitStock의 타입)
  
-        즉, [Fruit : Int] 타입을 가지는 임의의 변수 stock 을 지역변수로 선언하고
+        즉, [Fruit : UInt] 타입을 가지는 임의의 변수 stock 을 지역변수로 선언하고
         그 값에 대한 세팅을 CODE 로 작성한 것이구요
         그 값을 리턴하여 fruitStock 에 할당하는 코드입니다!
  

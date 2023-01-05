@@ -6,18 +6,29 @@
 
 import Foundation
 
-// 쥬스 메이커 타입
 struct JuiceMaker {
-     private let fruitStore = FruitStore()
-
+    private let fruitStore = FruitStore()
+    
     func make(juiceName: FruitJuice) {
-        for (key, value) in juiceName.recipe {
-            guard let currentStock = fruitStore.fruitStock[key] else { return }
-            guard currentStock > value else { return print("재고부족") }
+        guard isEnoughFruit(of: juiceName) else {
+            print("재고부족")
+            return
         }
+        
+        consumeStock(for: juiceName)
+    }
+    
+    private func isEnoughFruit(of juiceName: FruitJuice) -> Bool {
         for (key, value) in juiceName.recipe {
-            guard let currentStock = fruitStore.fruitStock[key] else { return }
-            fruitStore.fruitStock.updateValue(currentStock - value, forKey: key)
+            guard let currentStock = fruitStore.fruitStock[key] else { return false }
+            guard currentStock > value else { return false }
+        }
+        return true
+    }
+    
+    private func consumeStock(for juiceName: FruitJuice) {
+        for (key, value) in juiceName.recipe {
+            fruitStore.consumeStock(of: key, number: value)
         }
     }
 }
