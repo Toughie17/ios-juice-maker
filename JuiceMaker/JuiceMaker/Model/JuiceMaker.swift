@@ -11,24 +11,32 @@ struct JuiceMaker {
     
     func make(juiceName: FruitJuice) {
         guard isEnoughFruit(of: juiceName) else {
-            print("재고부족")
+            print(InfoMessage.noStock.rawValue)
             return
         }
         
-        consumeStock(for: juiceName)
+        bringFruit(for: juiceName)
     }
     
     private func isEnoughFruit(of juiceName: FruitJuice) -> Bool {
-        for (key, value) in juiceName.recipe {
-            guard let currentStock = fruitStore.fruitStock[key] else { return false }
-            guard currentStock > value else { return false }
+        for (fruit, neededNumber) in juiceName.recipe {
+            guard let currentStock = fruitStore.fruitStock[fruit] else { return false }
+            guard currentStock >= neededNumber else { return false }
         }
         return true
     }
     
-    private func consumeStock(for juiceName: FruitJuice) {
-        for (key, value) in juiceName.recipe {
-            fruitStore.consumeStock(of: key, number: value)
+    private func bringFruit(for juiceName: FruitJuice) {
+        for (fruit, neededNumber) in juiceName.recipe {
+            fruitStore.consumeStock(for: fruit, number: neededNumber)
         }
     }
 }
+/* ==================================================================================
+⭐️ 추가사항
+    1.  반복문이 기존에 for (key, value) 에서 for (fruit, neededNumber) 로 바뀌었어요!
+        코드에서 좀 더 의미있는 작명이 필요해 보여서 그렇게 했는데
+        어색하지 않으련지.. 의견 부탁드려요!
+ 
+ 
+*/

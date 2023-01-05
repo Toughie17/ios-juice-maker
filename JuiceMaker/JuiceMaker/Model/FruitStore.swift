@@ -7,7 +7,7 @@
 import Foundation
 
 class FruitStore {
-    private var defaultStock: UInt = 10
+    private let defaultStock: UInt = 10
 
     private(set) lazy var fruitStock: [Fruit : UInt] = {
         var stock: [Fruit : UInt] = [:]
@@ -17,25 +17,24 @@ class FruitStore {
         return stock
     }()
     
-    func addStock(of fruit: Fruit, number: UInt) {
+    func addStock(for fruit: Fruit, number: UInt) {
         guard let currentNumber = fruitStock[fruit] else { return }
         fruitStock.updateValue(currentNumber + number, forKey: fruit)
     }
     
-    func consumeStock(of fruit: Fruit, number: UInt) {
+    func consumeStock(for fruit: Fruit, number: UInt) {
         guard let currentNumber = fruitStock[fruit] else { return }
+        guard currentNumber >= number else {
+            print(InfoMessage.noStock.rawValue)
+            return
+        }
         fruitStock.updateValue(currentNumber - number, forKey: fruit)
     }
 }
 
 /* ==================================================================================
-⭐️ 추가사항
-    1. 말씀하신대로 private(set) fruitStock 으로 변경하였습니다.
-    
-    2. addStock <-> consumeStock 은 어떨까요?
- 
-    2-1. addStock(of ), consumeStock(of ) 어떨까요? of? for?
- 
+
+
  
 */
 
