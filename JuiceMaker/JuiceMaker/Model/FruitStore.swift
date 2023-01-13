@@ -1,6 +1,12 @@
 import Foundation
 
 class FruitStore {
+    static var shared = FruitStore()
+    
+    private init() {
+        
+    }
+    
     private(set) var fruitStock: [Fruit: UInt] = {
         let defaultStock: UInt = 10
         

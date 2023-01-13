@@ -8,13 +8,19 @@
 import UIKit
 
 class ChangeStockViewController: UIViewController {
-
+    
+    @IBOutlet weak var kiwiLabel: UILabel!
+    @IBOutlet weak var mangoLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setup()
     }
     
+    func setup() {
+        mangoLabel.text = String(FruitStore.shared.fruitStock[.mango]!)
+        kiwiLabel.text = String(FruitStore.shared.fruitStock[.kiwi]!)
+    }
 
     /*
     // MARK: - Navigation
@@ -25,5 +31,9 @@ class ChangeStockViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true)
 
+    }
+    
 }

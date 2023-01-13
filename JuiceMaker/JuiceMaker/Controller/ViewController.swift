@@ -152,10 +152,18 @@ class ViewController: UIViewController {
             registerFailAlert.dismiss(animated: true)
         }
     }
-        
-        func moveToChangeStockView() {
-            guard let viewController = self.storyboard?.instantiateViewController(identifier: StringConstatns.changeStockViewController) else { return }
-            self.navigationController?.pushViewController(viewController, animated: true)
+    
+    func moveToChangeStockView() {
+//                    guard let viewController = self.storyboard?.instantiateViewController(identifier: StringConstatns.changeStockViewController) else { return }
+//                    self.navigationController?.pushViewController(viewController, animated: true)
+        if let nextVC = self.storyboard?.instantiateViewController(withIdentifier: StringConstatns.changeStockViewController) as? ChangeStockViewController {
+            
+//            nextVC.strawberryCurrentStock = strawberryCurrentStock
+//            nextVC.kiwiLabel = kiwiCurrentStock
+//            nextVC.kiwiLabel.text = kiwiCurrentStock.text
+//            nextVC.kiwiLabel.text = kiwiCurrentStock.text
+            self.present(nextVC, animated: true)
         }
     }
+}
 
