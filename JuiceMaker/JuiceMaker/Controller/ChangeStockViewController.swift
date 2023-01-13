@@ -47,12 +47,39 @@ class ChangeStockViewController: UIViewController {
         print("nexVC viewWillDisappear function")
     }
     
+    
+    
+    @IBAction func strawberryStepper(_ sender: UIStepper) {
+        print(strawberryStepper.value)
+        strawberryLabel.text =  String(Int(strawberryStepper.value))
+        FruitStore.shared.changeQuantity(of: .strawberry, num: UInt(strawberryStepper.value))
+    }
+    
+    @IBAction func bananaStepper(_ sender: UIStepper) {
+        print(bananaStepper.value)
+        bananaLabel.text =  String(Int(bananaStepper.value))
+        FruitStore.shared.changeQuantity(of: .banana, num: UInt(bananaStepper.value))
+    }
+    
+    @IBAction func pineappleStepper(_ sender: UIStepper) {
+        print(pineappleStepper.value)
+        pineappleLabel.text =  String(Int(pineappleStepper.value))
+        FruitStore.shared.changeQuantity(of: .pineapple, num: UInt(pineappleStepper.value))
+    }
+
     @IBAction func kiwiStepper(_ sender: UIStepper) {
         print(kiwiStepper.value)
         kiwiLabel.text =  String(Int(kiwiStepper.value))
-        
         FruitStore.shared.changeQuantity(of: .kiwi, num: UInt(kiwiStepper.value))
     }
+    
+    @IBAction func mangoStepper(_ sender: UIStepper) {
+        print(mangoStepper.value)
+        mangoLabel.text =  String(Int(mangoStepper.value))
+        FruitStore.shared.changeQuantity(of: .mango, num: UInt(mangoStepper.value))
+    }
+    
+    
     
     @IBAction func closeButtonTapped(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true)
