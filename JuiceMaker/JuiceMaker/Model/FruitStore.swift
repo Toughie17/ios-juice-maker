@@ -18,6 +18,10 @@ class FruitStore {
         return stock
     }()
     
+    func changeQuantity(of fruit: Fruit, num: UInt) {
+        self.fruitStock[fruit] = num
+    }
+    
     func quantity(of fruit: Fruit) -> UInt? {
         return fruitStock[fruit]
     }

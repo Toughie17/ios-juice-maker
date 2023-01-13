@@ -10,8 +10,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var strawberryCurrentStock: UILabel!
     @IBOutlet weak var bananaCurrentStock: UILabel!
     @IBOutlet weak var pineappleCurrentStock: UILabel!
-    @IBOutlet weak var kiwiCurrentStock: UILabel!
+    @IBOutlet weak var kiwiCurrentStock: UILabel! {
+        willSet {
+            print("a")
+        }
+        didSet {
+            print("b")
+        }
+    }
     @IBOutlet weak var mangoCurrentStock: UILabel!
+    
     
     let juiceMaker = JuiceMaker()
     
@@ -22,6 +30,13 @@ class ViewController: UIViewController {
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        print("appeear")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("appear")
+    }
+
     private func setup() {
         refreshLabels()
     }
@@ -97,8 +112,8 @@ class ViewController: UIViewController {
     func refreshLabels() {
         checkCurrentStock()
         changeFruitLabels()
+        print("refreshed!")
     }
-    
     
     
     func order(fruitJuice: FruitJuice) {
@@ -154,16 +169,24 @@ class ViewController: UIViewController {
     }
     
     func moveToChangeStockView() {
-//                    guard let viewController = self.storyboard?.instantiateViewController(identifier: StringConstatns.changeStockViewController) else { return }
-//                    self.navigationController?.pushViewController(viewController, animated: true)
         if let nextVC = self.storyboard?.instantiateViewController(withIdentifier: StringConstatns.changeStockViewController) as? ChangeStockViewController {
             
-//            nextVC.strawberryCurrentStock = strawberryCurrentStock
-//            nextVC.kiwiLabel = kiwiCurrentStock
-//            nextVC.kiwiLabel.text = kiwiCurrentStock.text
-//            nextVC.kiwiLabel.text = kiwiCurrentStock.text
+            
+            nextVC.strawberryLabel = self.strawberryCurrentStock
+//            nextVC.bananaLabel = self.bananaCurrentStock
+//            nextVC.pineappleLabel = self.pineappleCurrentStock
+//            nextVC.mangoLabel = self.mangoCurrentStock
+            nextVC.kiwiLabel = self.kiwiCurrentStock
+//            nextVC.kiwiLabel.text = self.kiwiCurrentStock.text!
+            
+            
+            nextVC.vCon = self
+            
             self.present(nextVC, animated: true)
+            
+            nextVC.viewWillDisappear(true)
         }
+        
     }
 }
 
